@@ -1,0 +1,12 @@
+---
+---
+
+$font-size: calc(4vw + 4vh);
+$primary-color: gold;
+$background: #000;
+
+body {
+  font-size: 120% $font-size;
+  color: $primary-color;
+  background-color: $background;
+}
