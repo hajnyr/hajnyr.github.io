@@ -51,7 +51,13 @@
 <body class="bg-custom-light p-6 md:p-16 md:pt-24 text-slate-900 dark:text-slate-100 min-h-screen flex justify-center items-start leading-relaxed">
 
     <div class="max-w-4xl w-full">
-<button onclick="toggleDarkMode()" class="flex items-center gap-2 p-2 px-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group" title="Přepnout režim">
+        <div class="flex justify-between items-end px-2 uppercase">
+            <h1 class="text-4xl md:text-6xl pl-2 mb-10 font-light tracking-wide">Vítejte</h1>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <div id="date" class="text-md pr-2 md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
+                    <div id="clock" class="text-3xl pr-2 md:text-5xl wp-clock">13:25</div>
+                    <button onclick="toggleDarkMode()" class="flex float-right items-center gap-2 mb-6 p-2 px-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group" title="Přepnout režim">
     <div class="relative w-6 h-6">
         <svg id="sun-icon" class="hidden dark:block w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
@@ -66,16 +72,9 @@
         <span class="hidden dark:inline">Světlý vzhled</span>
     </span>
 </button>
-        <div class="flex justify-between items-end mb-10 px-2 uppercase">
-            <h1 class="text-4xl md:text-6xl font-light tracking-wide">Vítejte</h1>
-            <div class="flex items-center gap-4">
-                <div class="text-right">
-                    <div id="date" class="text-md md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
-                    <div id="clock" class="text-3xl md:text-5xl wp-clock">13:25</div>
                 </div>
             </div>
         </div>
-
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[140px] md:auto-rows-[180px]">
             
             <div class="col-span-2 row-span-2 bg-black transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-end cursor-pointer group active-state relative overflow-hidden min-h-[280px] md:min-h-0" 
@@ -97,7 +96,7 @@
             </div>
 
             <div class="bg-red-300 dark:bg-red-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj a správa</span>
+                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj a&nbsp;správa</span>
                 <p class="text-md detail-text leading-snug">Weby, E-shopy</p>
             </div>
 
@@ -108,7 +107,7 @@
 
             <div class="col-span-2 bg-violet-300 dark:bg-violet-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
                 <div>
-                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Digitální pracoviště a bezpečnost</span>
+                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Digitální pracoviště a&nbsp;bezpečnost</span>
                     <p class="text-lg md:text-xl detail-text leading-snug">Microsoft 365, Intune, MECM, Identity (MFA/IAM), Ochrana koncových bodů (EDR)</p>
                 </div>
             </div>
@@ -119,7 +118,6 @@
                     <p class="text-lg md:text-xl detail-text leading-snug">Azure & Google Cloud, Windows Server, Entra ID, Hybridní prostředí</p>
                 </div>
             </div>
-
             <div class="bg-amber-300 dark:bg-amber-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
                 <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text">Automatizace</span>
                 <p class="text-md detail-text leading-snug">Power Automate, Low-code</p>
@@ -132,7 +130,7 @@
             </a>
 
             <div class="col-span-2 md:col-span-4 mt-12 text-neutral-400 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
-                <p class="text-center text-[16px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a spolupráce</p>
+                <p class="text-center text-[16px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a&nbsp;spolupráce</p>
                 <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
                     <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto dark:invert dark:opacity-100">
                     <img src="https://www.pilsentechnologies.cz/wp-content/uploads/2018/10/logo_pilsen_technologies.png" alt="pilsentechnologies.cz" class="h-6 w-auto dark:invert dark:opacity-100">
@@ -143,14 +141,12 @@
             </div>
         </div>
 
-        <footer class="inset-x-0 bottom-0 mt-24 pt-12 text-neutral-400 dark:text-neutral-200 text-center">
+        <footer class="inset-x-0 bottom-0 mt-32 pt-12 text-neutral-400 dark:text-neutral-200 text-center">
+            <div class="border-t border-neutral-200 dark:border-neutral-400 w-24 mx-auto mb-6"></div>
   <p class="text-xs uppercase tracking-widest font-medium">
     &copy; <span id="current-year"></span> 
-    <span class="mx-2">•</span> 
     Radek Hajný 
-         <span class="mx-2">•</span> 
     <a href="mailto:hajnydev@gmail.com">hajnydev@gmail.com</a>
-    <span class="mx-2">•</span> 
     <a href="https://radekhajny.cz">radekhajny.cz</a>
   </p>
         </footer>
