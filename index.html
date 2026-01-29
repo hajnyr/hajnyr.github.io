@@ -117,7 +117,7 @@
         <p class="text-[13px] mt-2 font-light leading-snug">hajnydev@gmail.com</p>
     </a>
 
-    <div class="col-span-2 md:col-span-4 row-span-1 mt-12 text-neutral-400 metro-tile rounded-2xl relative overflow-hidden min-h-[140px] md:min-h-[180px] cursor-default pointer-events-none">
+    <div class="col-span-2 md:col-span-4 row-span-1 mt-12 text-neutral-400 metro-tile rounded-2xl relative min-h-[140px] md:min-h-[180px] cursor-default pointer-events-none">
   <p class="text-center text-[16px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a spolupráce</p>
   <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
     <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto">
@@ -131,9 +131,19 @@
 </div>
 
 </div>
-
-        </div>
-</div>
+<footer class="inset-x-0 bottom-0 mt-12 pt-12 text-neutral-400 text-center">
+  <div class="border-t border-slate-200/50 w-24 mx-auto mb-6"></div>
+  
+  <p class="text-xs uppercase tracking-widest font-medium">
+    &copy; <span id="current-year"></span> 
+    <span class="mx-2">•</span> 
+    Radek Hajný 
+         <span class="mx-2">•</span> 
+    <a href="mailto:hajnydev@gmail.com">hajnydev@gmail.com</a>
+    <span class="mx-2">•</span> 
+    <a href="https://radekhajny.cz">radekhajny.cz</a>
+  </p>
+</footer>
 
 
     </div>
@@ -161,6 +171,9 @@
         // Aktualizace každou sekundu
         setInterval(updateClock, 1000);
         updateClock(); // První spuštění
+
+        // Automatická aktualizace roku
+  document.getElementById('current-year').textContent = new Date().getFullYear();
 </script>
     
 </body>
