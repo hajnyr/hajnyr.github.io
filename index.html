@@ -3,137 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Specialista a konzultant </title>
+    <title>IT Specialista a konzultant</title>
     <script src="https://cdn.tailwindcss.com"></script>
-   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        body {font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif; background-color: #272727; overflow-x: hidden;
-        background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%); background-attachment: fixed; min-height: 100vh;}
-        .metro-tile { transition: transform 0.1s; cursor: pointer; /* Zakáže označování textu */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none;     /* IE 10+ */
-    user-select: none;         /* Standardní prohlížeče */
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     
-    /* Volitelně: odstraní modrý obdélník (focus ring) na mobilech */
-    -webkit-tap-highlight-color: transparent;
-    outline: none;}
+    <script>
+        // Konfigurace Tailwindu pro podporu přepínání třídou
+        tailwind.config = {
+            darkMode: 'selector',
+        }
+
+        // Inicializace režimu před vykreslením (zabrání probliknutí)
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Světlý gradient */
+        .bg-custom-light {
+            background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%);
+            background-attachment: fixed;
+        }
+        
+        /* Tmavý gradient */
+        .dark .bg-custom-light {
+            background: radial-gradient(circle at center, #4f4f4f 0%, #1d2237 100%);
+        }
+
+        .metro-tile { transition: transform 0.1s, background-color 0.3s; cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
         .metro-tile:active { transform: scale(0.96); }
-        /* Specifický font pro hodiny */
         .wp-clock { font-weight: 300; }
-        /* Výchozí stav - text v odstavci je menší a trochu průhledný */
-.detail-text {
-    transform: scale(0.9);
-    transform-origin: left bottom;
-    opacity: 0.7;
-}
-
-/* Stav po kliknutí (třída .is-expanded) */
-.is-expanded .label-text {
-    transform: scale(0.8); /* Nadpis se zmenší */
-    opacity: 0.6;
-}
-
-.is-expanded .detail-text {
-    transform: scale(1); /* Obsah se zvětší */
-    opacity: 1;
-    font-weight: 400; /* Můžeš i mírně zvýraznit tloušťku */
-}
-
-.is-expanded .detail-text.bigger  {
-    transform: scale(1.3); /* Obsah se zvětší */
-}
-
-/* Metro efekt zmenšení celé dlaždice při stisku */
-.metro-tile:active {
-    transform: scale(0.97);
-    transition: transform 0.1s;
-}
+        
+        .detail-text { transform: scale(0.9); transform-origin: left bottom; opacity: 0.7; transition: all 0.3s; }
+        .is-expanded .label-text { transform: scale(0.8); opacity: 0.6; }
+        .is-expanded .detail-text { transform: scale(1); opacity: 1; font-weight: 400; }
+        .is-expanded .detail-text.bigger { transform: scale(1.3); }
     </style>
 </head>
-<body class="p-6 md:p-16 md:pt-24 text-slate-900 min-h-screen flex justify-center items-start leading-relaxed">
+<body class="bg-custom-light p-6 md:p-16 md:pt-24 text-slate-900 dark:text-slate-100 min-h-screen flex justify-center items-start leading-relaxed">
 
     <div class="max-w-4xl w-full">
+<button onclick="toggleDarkMode()" class="flex items-center gap-2 p-2 px-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group" title="Přepnout režim">
+    <div class="relative w-6 h-6">
+        <svg id="sun-icon" class="hidden dark:block w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+        </svg>
+        <svg id="moon-icon" class="block dark:hidden w-6 h-6 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+        </svg>
+    </div>
+
+    <span class="text-xs md:text-sm font-medium uppercase tracking-wider">
+        <span class="inline dark:hidden">Tmavý vzhled</span>
+        <span class="hidden dark:inline">Světlý vzhled</span>
+    </span>
+</button>
         <div class="flex justify-between items-end mb-10 px-2 uppercase">
             <h1 class="text-4xl md:text-6xl font-light tracking-wide">Vítejte</h1>
-            <div class="text-right">
-                <div id="date" class="text-md md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
-                <div id="clock" class="text-3xl md:text-5xl wp-clock">13:25</div>
+            <div class="flex items-center gap-4">
+                <div class="text-right">
+                    <div id="date" class="text-md md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
+                    <div id="clock" class="text-3xl md:text-5xl wp-clock">13:25</div>
+                </div>
             </div>
         </div>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[140px] md:auto-rows-[180px]">
-    
-    <div class="col-span-2 row-span-2 bg-black transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-end cursor-pointer group active-state relative overflow-hidden min-h-[280px] md:min-h-0" 
-         onclick="this.classList.toggle('is-expanded'); this.blur();" tabindex="0">
-        <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&q=60&w=500" alt="RH" class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105" alt="Background">
-        <div class="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
-        <div class="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-8 flex justify-between items-start z-20 transition-all duration-500 label-text">
-            <span style="font-family: 'Poiret One';" class="text-xl md:text-2xl font-light tracking-tighter text-white opacity-100"><a href="https://radekhajny.cz" target="_self" onclick="event.stopPropagation();">radekhajny.cz</a></span>
-            <a href="https://www.linkedin.com/in/radekhajny/" target="_blank" onclick="event.stopPropagation();" class="text-white opacity-60 hover:opacity-100 transition-opacity p-1"><svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[140px] md:auto-rows-[180px]">
+            
+            <div class="col-span-2 row-span-2 bg-black transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-end cursor-pointer group active-state relative overflow-hidden min-h-[280px] md:min-h-0" 
+                 onclick="this.classList.toggle('is-expanded'); this.blur();" tabindex="0">
+                <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&q=60&w=500" alt="RH" class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
+                <div class="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-8 flex justify-between items-start z-20 transition-all duration-500 label-text">
+                    <span style="font-family: 'Poiret One';" class="text-xl md:text-2xl font-light tracking-tighter text-white opacity-100">
+                        <a href="https://radekhajny.cz" target="_self" onclick="event.stopPropagation();">radekhajny.cz</a>
+                    </span>
+                    <a href="https://www.linkedin.com/in/radekhajny/" target="_blank" onclick="event.stopPropagation();" class="text-white opacity-60 hover:opacity-100 transition-opacity p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+                <div class="relative z-20 p-6 md:p-8">
+                    <h2 class="text-5xl md:text-7xl pb-4 font-semibold leading-none transition-all duration-500 origin-left label-text text-white">RADEK<br>HAJNÝ</h2>
+                    <p class="bigger -mt-[0.5rem] text-sm md:text-md uppercase transition-all duration-500 detail-text text-white/100">IT správa, weby, konzultace</p>
+                </div>
+            </div>
+
+            <div class="bg-red-300 dark:bg-red-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
+                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj a správa</span>
+                <p class="text-md detail-text leading-snug">Weby, E-shopy</p>
+            </div>
+
+            <div class="bg-sky-300 dark:bg-sky-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
+                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Konzultace</span>
+                <p class="text-md detail-text leading-snug">IT Strategie a architektura, Analýzy</p>
+            </div>
+
+            <div class="col-span-2 bg-violet-300 dark:bg-violet-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
+                <div>
+                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Digitální pracoviště a bezpečnost</span>
+                    <p class="text-lg md:text-xl detail-text leading-snug">Microsoft 365, Intune, MECM, Identity (MFA/IAM), Ochrana koncových bodů (EDR)</p>
+                </div>
+            </div>
+
+            <div class="col-span-2 bg-green-300 dark:bg-green-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
+                <div>
+                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Cloud & Servery</span>
+                    <p class="text-lg md:text-xl detail-text leading-snug">Azure & Google Cloud, Windows Server, Entra ID, Hybridní prostředí</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-300 dark:bg-amber-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
+                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text">Automatizace</span>
+                <p class="text-md detail-text leading-snug">Power Automate, Low-code</p>
+            </div>
+
+            <a href="mailto:hajnydev@gmail.com" class="bg-neutral-500 dark:bg-neutral-800 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile text-white rounded-2xl shadow-lg flex flex-col justify-center items-center text-center">
+                <span class="text-3xl mb-1">✉</span>
+                <span class="text-[16px] font-bold uppercase leading-none">POPTAT KONZULTACI</span>
+                <p class="text-[13px] mt-2 font-light">hajnydev@gmail.com</p>
+            </a>
+
+            <div class="col-span-2 md:col-span-4 mt-12 text-neutral-400 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
+                <p class="text-center text-[16px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a spolupráce</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
+                    <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto dark:invert dark:opacity-100">
+                    <img src="https://www.pilsentechnologies.cz/wp-content/uploads/2018/10/logo_pilsen_technologies.png" alt="pilsentechnologies.cz" class="h-6 w-auto dark:invert dark:opacity-100">
+                    <img src="https://attavena.cz/wp-content/uploads/2021/08/cropped-ATTAVENA-300x47-1.png" alt="attavena.cz" class="h-6 w-auto dark:invert dark:opacity-100">
+                    <img src="https://www.oilstop.cz/wp-content/uploads/2022/01/OilStop_colored.png" alt="DKoučink.cz" class="h-6 w-auto dark:invert dark:opacity-100">
+                    <span class="text-[20px] font-semibold dark:font-light dark:invert-100">DKoučink.cz</span>
+                </div>
+            </div>
         </div>
-        <div class="relative z-20 p-6 md:p-8">
-            <h2 class="text-5xl md:text-7xl pb-4 font-semibold leading-none transition-all duration-500 origin-left label-text text-white">RADEK<br>HAJNÝ</h2>
-            <p class="bigger -mt-[0.5rem] text-sm md:text-md uppercase transition-all duration-500 detail-text text-white/100">IT správa, weby, konzultace</p>
-        </div>
-    </div>
 
-    <div class="bg-red-300 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between cursor-pointer group active-state" 
-         onclick="this.classList.toggle('is-expanded')" tabindex="0">
-        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj</span>
-        <p class="text-md font-normal leading-tight transition-all duration-500 -mt-[0.5rem] detail-text leading-snug">Weby, E-shopy</p>
-    </div>
-
-    <div class="bg-sky-300 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between cursor-pointer group active-state" 
-         onclick="this.classList.toggle('is-expanded')" tabindex="0">
-        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Konzultace</span>
-        <p class="text-md font-normal leading-tight transition-all duration-500 -mt-[0.5rem] detail-text leading-snug">IT Strategie a architektura, Analýzy</p>
-    </div>
-
-    <div class="col-span-2 bg-violet-300 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between cursor-pointer group active-state" 
-         onclick="this.classList.toggle('is-expanded')" tabindex="0">
-        <div>
-            <span class="text-[16px] font-bold uppercase block mb-1 transition-all duration-500 origin-left label-text break-words">Digitální pracoviště a bezpečnost</span>
-            <p class="text-lg md:text-xl font-normal leading-tight transition-all duration-500 -mt-[0.5rem] detail-text leading-snug">Microsoft 365, Intune, MECM, Identity (MFA/IAM), Ochrana koncových bodů (EDR)</p>
-        </div>
-    </div>
-
-    <div class="col-span-2 bg-green-300 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between cursor-pointer group active-state" 
-         onclick="this.classList.toggle('is-expanded')" tabindex="0">
-        <div>
-            <span class="text-[16px] font-bold uppercase block mb-1 transition-all duration-500 origin-left label-text break-words">Cloud & Servery</span>
-            <p class="text-lg md:text-xl font-normal leading-tight transition-all duration-500 -mt-[0.5rem] detail-text leading-snug">Azure & Google Cloud, Windows Server, Entra ID, Hybridní prostředí</p>
-        </div>
-    </div>
-
-    <div class="bg-amber-300 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between cursor-pointer group active-state" 
-         onclick="this.classList.toggle('is-expanded')" tabindex="0">
-        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Automatizace</span>
-        <p class="text-md font-normal transition-all duration-500 -mt-[0.5rem] detail-text leading-snug">Power Automate, Low-code</p>
-    </div>
-
-    <a href="mailto:hajnydev@gmail.com" class="bg-neutral-500 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile text-white rounded-2xl shadow-lg flex flex-col justify-center items-center">
-        <span class="text-3xl mb-1">✉</span>
-        <span class="text-[16px] text-center font-bold uppercase leading-none">POPTAT KONZULTACI</span>
-        <p class="text-[13px] mt-2 font-light leading-snug">hajnydev@gmail.com</p>
-    </a>
-
-    <div class="col-span-2 md:col-span-4 row-span-1 mt-12 text-neutral-400 metro-tile rounded-2xl relative min-h-[140px] md:min-h-[180px] cursor-default pointer-events-none">
-  <p class="text-center text-[16px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a spolupráce</p>
-  <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
-    <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto">
-    <img src="https://www.pilsentechnologies.cz/wp-content/uploads/2018/10/logo_pilsen_technologies.png" alt="pilsentechnologies.cz" class="h-6 w-auto">
-    <img src="https://attavena.cz/wp-content/uploads/2021/08/cropped-ATTAVENA-300x47-1.png" alt="attavena.cz" class="h-6 w-auto">
-<img src="https://www.oilstop.cz/wp-content/uploads/2022/01/OilStop_colored.png" alt="DKoučink.cz" class="h-6 w-auto">
-<span class="text-[20px] text-neutral-500 flex flex-col justify-start h-6 w-auto">DKoučink.cz</span>
-
-  
-    </div>
-</div>
-
-</div>
-<footer class="inset-x-0 bottom-0 mt-12 pt-12 text-neutral-400 text-center">
-  <div class="border-t border-slate-200/50 w-24 mx-auto mb-6"></div>
-  
+        <footer class="inset-x-0 bottom-0 mt-12 pt-12 text-neutral-400 dark:text-neutral-200 text-center">
   <p class="text-xs uppercase tracking-widest font-medium">
     &copy; <span id="current-year"></span> 
     <span class="mx-2">•</span> 
@@ -143,38 +153,33 @@
     <span class="mx-2">•</span> 
     <a href="https://radekhajny.cz">radekhajny.cz</a>
   </p>
-</footer>
-
-
+        </footer>
     </div>
 
     <script>
         function updateClock() {
             const now = new Date();
-            
-            // Formát času (HH:mm)
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             document.getElementById('clock').textContent = `${hours}:${minutes}`;
-            
-            // Formát data
             const days = ['NEDĚLE', 'PONDĚLÍ', 'ÚTERÝ', 'STŘEDA', 'ČTVRTEK', 'PÁTEK', 'SOBOTA'];
             const months = ['LEDNA', 'ÚNORA', 'BŘEZNA', 'DUBNA', 'KVĚTNA', 'ČERVNA', 'ČERVENCE', 'SRPNA', 'ZÁŘÍ', 'ŘÍJNA', 'LISTOPADU', 'PROSINCE'];
-            
-            const dayName = days[now.getDay()];
-            const dayNum = now.getDate();
-            const monthName = months[now.getMonth()];
-            
-            document.getElementById('date').textContent = `${dayName}, ${dayNum}. ${monthName}`;
+            document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}. ${months[now.getMonth()]}`;
         }
 
-        // Aktualizace každou sekundu
-        setInterval(updateClock, 1000);
-        updateClock(); // První spuštění
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
 
-        // Automatická aktualizace roku
-  document.getElementById('current-year').textContent = new Date().getFullYear();
-</script>
-    
+        setInterval(updateClock, 1000);
+        updateClock();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
