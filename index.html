@@ -1,249 +1,357 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Specialista a konzultant</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <script>
-        // Konfigurace Tailwindu pro podporu přepínání třídou
-        tailwind.config = {
-            darkMode: 'selector',
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Specialista a konzultant</title>
 
-        // Inicializace režimu před vykreslením (zabrání probliknutí)
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark')
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Radek Hajný – IT specialista a konzultant. IT správa, weby, konzultace, Microsoft 365, Azure, bezpečnost, automatizace a další.">
+  <meta property="og:title" content="Radek Hajný – IT specialista a konzultant">
+  <meta property="og:description" content="IT správa, weby, konzultace, Microsoft 365, Azure, bezpečnost, automatizace a další.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://radekhajny.cz">
 
-    <style>
-        body {
-            font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        /* Světlý gradient */
-        .bg-custom-light {
-            background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%);
-            background-attachment: fixed;
-        }
-        
-        /* Tmavý gradient */
-        .dark .bg-custom-light {
-            background: radial-gradient(circle at center, #4f4f4f 0%, #1d2237 100%);
-        }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Poiret+One&display=swap" rel="stylesheet">
 
-        .metro-tile { transition: transform 0.1s, background-color 0.3s; cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; outline: none; }
-        .metro-tile:active { transform: scale(0.96); }
-        .wp-clock { font-weight: 300; }
+  <script>
+    // Konfigurace Tailwindu pro podporu přepínání třídou
+    tailwind.config = {
+      darkMode: 'class',
+    }
+
+    // Inicializace režimu před vykreslením (zabrání probliknutí)
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
         
-        .detail-text { transform: scale(0.9); transform-origin: left bottom; opacity: 0.7; transition: all 0.3s; }
-        .is-expanded .label-text { transform: scale(0.8); opacity: 0.6; }
-        .is-expanded .detail-text { transform: scale(1); opacity: 1; font-weight: 400; }
-        .is-expanded .detail-text.bigger { transform: scale(1.3); }
-    </style>
+    /* Světlý gradient */
+    .bg-custom-light {
+      background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%);
+      background-attachment: fixed;
+    }
+        
+    /* Tmavý gradient */
+    .dark .bg-custom-light {
+      background: radial-gradient(circle at center, #4f4f4f 0%, #1d2237 100%);
+    }
+
+    .metro-tile {
+      transition: transform 0.1s, background-color 0.3s;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .metro-tile:active {
+      transform: scale(0.96);
+    }
+    .wp-clock {
+      font-weight: 300;
+    }
+        
+    .detail-text {
+      transform: scale(0.9);
+      transform-origin: left bottom;
+      opacity: 0.7;
+      transition: all 0.3s;
+    }
+    .is-expanded .label-text {
+      transform: scale(0.8);
+      opacity: 0.6;
+    }
+    .is-expanded .detail-text {
+      transform: scale(1);
+      opacity: 1;
+      font-weight: 400;
+    }
+    .is-expanded .detail-text.bigger {
+      transform: scale(1.3);
+    }
+  </style>
 </head>
 <body class="bg-custom-light p-6 md:p-16 md:pt-24 text-slate-900 dark:text-slate-100 min-h-screen flex justify-center items-start leading-relaxed">
 
-    <div class="max-w-4xl w-full">
-        <div class="flex justify-between items-end px-2 uppercase">
-            <h1 class="text-4xl md:text-6xl pl-2 mb-10 font-light tracking-wide">Vítejte</h1>
-            <div class="flex items-center gap-4">
-                <div class="text-right">
-                    <div id="date" class="text-md pr-2 md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
-                    <div id="clock" class="text-3xl pr-2 md:text-5xl wp-clock">13:25</div>
-                    <button onclick="toggleDarkMode()" class="flex float-right items-center gap-2 mb-6 p-2 px-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group" title="Přepnout režim">
-    <div class="relative w-6 h-6">
-        <svg id="sun-icon" class="hidden dark:block w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
-        </svg>
-        <svg id="moon-icon" class="block dark:hidden w-6 h-6 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-        </svg>
+  <div class="max-w-4xl w-full">
+    <div class="flex justify-between items-end px-2 uppercase">
+      <h1 class="text-4xl md:text-6xl pl-2 mb-10 font-light tracking-wide">Vítejte</h1>
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <div id="date" class="text-md pr-2 md:text-xl font-light">ÚTERÝ, 27. LEDNA</div>
+          <div id="clock" class="text-3xl pr-2 md:text-5xl wp-clock">13:25</div>
+          <button
+            onclick="toggleDarkMode()"
+            class="flex float-right items-center gap-2 mb-6 p-2 px-3 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group"
+            title="Přepnout režim"
+            type="button"
+          >
+            <div class="relative w-6 h-6">
+              <svg id="sun-icon" class="hidden dark:block w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+              </svg>
+              <svg id="moon-icon" class="block dark:hidden w-6 h-6 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+              </svg>
+            </div>
+
+            <span class="text-xs md:text-sm font-medium uppercase tracking-wider">
+              <span class="inline dark:hidden">Tmavý vzhled</span>
+              <span class="hidden dark:inline">Světlý vzhled</span>
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <span class="text-xs md:text-sm font-medium uppercase tracking-wider">
-        <span class="inline dark:hidden">Tmavý vzhled</span>
-        <span class="hidden dark:inline">Světlý vzhled</span>
-    </span>
-</button>
-                </div>
-            </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[140px] md:auto-rows-[180px]">
+      
+      <div
+        class="col-span-2 row-span-2 bg-black transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-end cursor-pointer group active-state relative overflow-hidden min-h-[280px] md:min-h-0"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&q=60&w=500" alt="RH" class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
+        <div class="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-8 flex justify-between items-start z-20 transition-all duration-500 label-text">
+          <span style="font-family: 'Poiret One';" class="text-xl md:text-2xl font-light tracking-tighter text-white opacity-100">
+            <a href="https://radekhajny.cz" target="_self" onclick="event.stopPropagation();">radekhajny.cz</a>
+          </span>
+          <a
+            href="https://www.linkedin.com/in/radekhajny/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onclick="event.stopPropagation();"
+            class="text-white opacity-60 hover:opacity-100 transition-opacity p-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 auto-rows-[140px] md:auto-rows-[180px]">
-            
-            <div class="col-span-2 row-span-2 bg-black transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-end cursor-pointer group active-state relative overflow-hidden min-h-[280px] md:min-h-0" 
-                 onclick="this.classList.toggle('is-expanded'); this.blur();" tabindex="0">
-                <img src="https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&q=60&w=500" alt="RH" class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-105">
-                <div class="absolute inset-0 bg-black/70 z-10 pointer-events-none"></div>
-                <div class="absolute top-6 left-6 right-6 md:top-8 md:left-8 md:right-8 flex justify-between items-start z-20 transition-all duration-500 label-text">
-                    <span style="font-family: 'Poiret One';" class="text-xl md:text-2xl font-light tracking-tighter text-white opacity-100">
-                        <a href="https://radekhajny.cz" ttarget="_self" onclick="event.stopPropagation();">radekhajny.cz</a>
-                    </span>
-                    <a href="https://www.linkedin.com/in/radekhajny/" target="_blank" onclick="event.stopPropagation();" class="text-white opacity-60 hover:opacity-100 transition-opacity p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                </div>
-                <div class="relative z-20 p-6 md:p-8">
-                    <h2 class="text-5xl md:text-7xl pb-4 font-semibold leading-none transition-all duration-500 origin-left label-text text-white">RADEK<br>HAJNÝ</h2>
-                    <p class="bigger -mt-[0.5rem] text-sm md:text-md uppercase transition-all duration-500 detail-text text-white/100">IT správa, weby, konzultace</p>
-                </div>
-            </div>
-
-            <div class="bg-red-300 dark:bg-red-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj a&nbsp;správa</span>
-                <p class="text-md detail-text leading-snug">Weby, E-shopy, Support</p>
-            </div>
-
-            <div class="bg-sky-300 dark:bg-sky-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Konzultace a&nbsp;support</span>
-                <p class="text-md detail-text leading-snug">IT konsolidace, Analýzy, IT support</p>
-            </div>
-
-            <div class="col-span-2 bg-violet-300 dark:bg-violet-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <div>
-                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Digitální pracoviště a&nbsp;bezpečnost</span>
-                    <p class="text-lg md:text-xl detail-text leading-snug">Microsoft 365, Intune, MECM, Identity (MFA/IAM), MDM, Ochrana koncových bodů (EDR), Defender XDR</p>
-                </div>
-            </div>
-
-            <div class="col-span-2 bg-green-300 dark:bg-green-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <div>
-                    <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">Cloud & Servery</span>
-                    <p class="text-lg md:text-xl detail-text leading-snug">Microsoft Azure, Windows Server, Active Directory, Entra ID, Hybridní prostředí, Google Workspace</p>
-                </div>
-            </div>
-            <div class="bg-amber-300 dark:bg-amber-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between" onclick="this.classList.toggle('is-expanded')" tabindex="0">
-                <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text">Automatizace</span>
-                <p class="text-md detail-text leading-snug">Power Automate, Low-code</p>
-            </div>
-
-            <a href="mailto:hajnydev@gmail.com" class="bg-neutral-500 dark:bg-neutral-800 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile text-white rounded-2xl shadow-lg flex flex-col justify-center items-center text-center">
-                <span class="text-3xl mb-1">✉</span>
-                <span class="text-[16px] font-bold uppercase leading-none">NAPIŠTE MI</span>
-                <p class="text-[13px] mt-2 font-light">hajnydev@gmail.com</p>
-            </a>
+        <div class="relative z-20 p-6 md:p-8">
+          <h2 class="text-5xl md:text-7xl pb-4 font-semibold leading-none transition-all duration-500 origin-left label-text text-white">
+            RADEK<br>HAJNÝ
+          </h2>
+          <p class="bigger -mt-[0.5rem] text-sm md:text-md uppercase transition-all duration-500 detail-text text-white/100">
+            IT správa, weby, konzultace
+          </p>
         </div>
- <div class="col-span-2 md:col-span-4 mt-20 mb-3 text-neutral-500 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
-    <p class="text-center text-[18px] uppercase tracking-[0.2em] mb-10">Získané certifikace</p>
-    
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-12 gap-x-4 justify-items-center items-start">
+      </div>
+
+      <div
+        class="bg-red-300 dark:bg-red-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Vývoj a&nbsp;správa</span>
+        <p class="text-md detail-text leading-snug">Weby, E-shopy, Support</p>
+      </div>
+
+      <div
+        class="bg-sky-300 dark:bg-sky-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text break-words">Konzultace a&nbsp;support</span>
+        <p class="text-md detail-text leading-snug">IT konsolidace, Analýzy, IT support</p>
+      </div>
+
+      <div
+        class="col-span-2 bg-violet-300 dark:bg-violet-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <div>
+          <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">
+            Digitální pracoviště a&nbsp;bezpečnost
+          </span>
+          <p class="text-lg md:text-xl detail-text leading-snug">
+            Microsoft 365, Intune, MECM, Identity (MFA/IAM), MDM, Ochrana koncových bodů (EDR), Defender XDR
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="col-span-2 bg-green-300 dark:bg-green-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex items-center justify-between"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <div>
+          <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left block mb-1 label-text">
+            Cloud &amp; Servery
+          </span>
+          <p class="text-lg md:text-xl detail-text leading-snug">
+            Microsoft Azure, Windows Server, Active Directory, Entra ID, Hybridní prostředí, Google Workspace
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="bg-amber-300 dark:bg-amber-700/80 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile rounded-2xl shadow-lg flex flex-col justify-between"
+        tabindex="0"
+        aria-expanded="false"
+         onclick="this.classList.toggle('is-expanded'); this.setAttribute('aria-expanded', this.classList.contains('is-expanded'));"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); this.click(); }"
+      >
+        <span class="text-[16px] font-bold uppercase transition-all duration-500 origin-left label-text">Automatizace</span>
+        <p class="text-md detail-text leading-snug">Power Automate, Low-code</p>
+      </div>
+
+      <a
+        href="mailto:hajnydev@gmail.com"
+        class="bg-neutral-500 dark:bg-neutral-800 p-4 transition duration-300 ease-in-out hover:scale-105 metro-tile text-white rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"
+      >
+        <span class="text-3xl mb-1">✉</span>
+        <span class="text-[16px] font-bold uppercase leading-none">NAPIŠTE MI</span>
+        <p class="text-[13px] mt-2 font-light">hajnydev@gmail.com</p>
+      </a>
+    </div>
+
+    <div class="col-span-2 md:col-span-4 mt-20 mb-3 text-neutral-500 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
+      <p class="text-center text-[18px] uppercase tracking-[0.2em] mb-10">Získané certifikace</p>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-12 gap-x-4 justify-items-center items-start">
         
-        <a href="https://www.credly.com/badges/dca1190f-01df-4c83-9f81-79febcbf05cd/public_url" 
-           target="_blank" 
-           class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105">
-            <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
-                Microsoft Certified: Azure Fundamentals
-            </span>
+        <a
+          href="https://www.credly.com/badges/dca1190f-01df-4c83-9f81-79febcbf05cd/public_url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105"
+        >
+          <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+            <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
+            Microsoft Certified: Azure Fundamentals
+          </span>
         </a>
 
-        <a href="https://www.credly.com/badges/7229d28e-de0f-4962-a2cd-bf21805cb622/linked_in_profile" 
-           target="_blank" 
-           class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105">
-            <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
-                Microsoft Certified: Azure Solutions Architect Expert
-            </span>
+        <a
+          href="https://www.credly.com/badges/7229d28e-de0f-4962-a2cd-bf21805cb622/linked_in_profile"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105"
+        >
+          <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+            <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
+            Microsoft Certified: Azure Solutions Architect Expert
+          </span>
         </a>
 
-        <a href="https://www.credly.com/badges/9efd5d87-7409-4099-bdc9-1f4c685d5ecb/public_url" 
-           target="_blank" 
-           class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105">
-            <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
-                Microsoft Certified: Power Platform Fundamentals
-            </span>
+        <a
+          href="https://www.credly.com/badges/9efd5d87-7409-4099-bdc9-1f4c685d5ecb/public_url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center group cursor-pointer no-underline transition duration-300 ease-in-out hover:scale-105"
+        >
+          <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+            <svg class="w-8 h-8" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
+            Microsoft Certified: Power Platform Fundamentals
+          </span>
         </a>
 
         <div class="flex flex-col items-center group">
-            <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                <svg class="w-9 h-9" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                    <path d="M13 2l-9 11h7l-1 9 9-11h-7l1-9z"/>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
-                Zákon č. 250/2021 Sb.<br>Odborná způsobilost v elektrotechnice
-            </span>
+          <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+            <svg class="w-9 h-9" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+              <path d="M13 2l-9 11h7l-1 9 9-11h-7l1-9z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
+            Zákon č. 250/2021 Sb.<br>Odborná způsobilost v elektrotechnice
+          </span>
         </div>
 
         <div class="flex flex-col items-center group">
-            <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                <svg class="w-9 h-9" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.4 0 2.5 1.1 2.5 2.5V11c.8 0 1.5.7 1.5 1.5v4c0 .8-.7 1.5-1.5 1.5h-5c-.8 0-1.5-.7-1.5-1.5v-4c0-.8.7-1.5 1.5-1.5v-1.5C9.5 8.1 10.6 7 12 7zm0 1.5c-.6 0-1 .4-1 1V11h2V9.5c0-.6-.4-1-1-1z"/>
-                </svg>
-            </div>
-            <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
-                Bezpečnostní prověrka NBÚ
-            </span>
+          <div class="w-12 h-12 mb-3 bg-neutral-200 dark:bg-neutral-800 rounded flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+            <svg class="w-9 h-9" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.4 0 2.5 1.1 2.5 2.5V11c.8 0 1.5.7 1.5 1.5v4c0 .8-.7 1.5-1.5 1.5h-5c-.8 0-1.5-.7-1.5-1.5v-4c0-.8.7-1.5 1.5-1.5v-1.5C9.5 8.1 10.6 7 12 7zm0 1.5c-.6 0-1 .4-1 1V11h2V9.5c0-.6-.4-1-1-1z"/>
+            </svg>
+          </div>
+          <span class="text-sm font-medium text-center max-w-[150px] leading-tight transition-colors group-hover:text-neutral-600 dark:group-hover:text-white">
+            Bezpečnostní prověrka NBÚ
+          </span>
         </div>
 
-    </div>
-</div>
-            <div class="col-span-2 md:col-span-4 mt-20 text-neutral-500 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
-                <p class="text-center text-[18px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a&nbsp;spolupráce</p>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
-                    <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto opacity-70 dark:invert-[0.8]  dark:opacity-100">
-                    <img src="https://www.pilsentechnologies.cz/wp-content/uploads/2018/10/logo_pilsen_technologies.png" alt="pilsentechnologies.cz" class="h-6 w-auto dark:invert-[0.2]  dark:opacity-100">
-                    <img src="https://attavena.cz/wp-content/uploads/2021/08/cropped-ATTAVENA-300x47-1.png" alt="attavena.cz" class="h-6 w-auto opacity-60 dark:invert-[0.7] dark:opacity-100">
-                    <img src="https://www.oilstop.cz/wp-content/uploads/2022/01/OilStop_colored.png" alt="DKoučink.cz" class="h-6 w-auto opacity-70 dark:invert-[0.5] dark:opacity-100">
-                    <span class="text-[20px] font-semibold dark:font-light dark:text-neutral-400">DKoučink.cz</span>
-                </div>
-            </div>
-
-
-        <footer class="inset-x-0 bottom-0 mt-32 pt-12 text-neutral-400 dark:text-neutral-200 text-center">
-            <div class="border-t border-neutral-200 dark:border-neutral-400 w-24 mx-auto mb-6"></div>
-  <p class="text-xs uppercase tracking-widest font-medium">
-    &copy; <span id="current-year"></span> 
-    Radek Hajný 
-    <a href="mailto:hajnydev@gmail.com">hajnydev@gmail.com</a>
-    <a href="https://radekhajny.cz">radekhajny.cz</a>
-  </p>
-        </footer>
+      </div>
     </div>
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}`;
-            const days = ['NEDĚLE', 'PONDĚLÍ', 'ÚTERÝ', 'STŘEDA', 'ČTVRTEK', 'PÁTEK', 'SOBOTA'];
-            const months = ['LEDNA', 'ÚNORA', 'BŘEZNA', 'DUBNA', 'KVĚTNA', 'ČERVNA', 'ČERVENCE', 'SRPNA', 'ZÁŘÍ', 'ŘÍJNA', 'LISTOPADU', 'PROSINCE'];
-            document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}. ${months[now.getMonth()]}`;
-        }
+    <div class="col-span-2 md:col-span-4 mt-20 text-neutral-500 dark:text-neutral-200 rounded-2xl relative min-h-[140px] cursor-default">
+      <p class="text-center text-[18px] uppercase tracking-[0.2em] mb-6">Vybrané projekty a&nbsp;spolupráce</p>
+      <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale contrast-125">
+        <img src="https://luban.cz/wp-content/uploads/2018/09/cropped-cropped-Logo-Luban-4-2-e1558041309663.png" alt="luban.cz" class="h-6 w-auto opacity-70 dark:invert-[0.8] dark:opacity-100">
+        <img src="https://www.pilsentechnologies.cz/wp-content/uploads/2018/10/logo_pilsen_technologies.png" alt="pilsentechnologies.cz" class="h-6 w-auto dark:invert-[0.2] dark:opacity-100">
+        <img src="https://attavena.cz/wp-content/uploads/2021/08/cropped-ATTAVENA-300x47-1.png" alt="attavena.cz" class="h-6 w-auto opacity-60 dark:invert-[0.7] dark:opacity-100">
+        <img src="https://www.oilstop.cz/wp-content/uploads/2022/01/OilStop_colored.png" alt="DKoučink.cz" class="h-6 w-auto opacity-70 dark:invert-[0.5] dark:opacity-100">
+        <span class="text-[20px] font-semibold dark:font-light dark:text-neutral-400">DKoučink.cz</span>
+      </div>
+    </div>
 
-        function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        }
+    <footer class="inset-x-0 bottom-0 mt-32 pt-12 text-neutral-400 dark:text-neutral-200 text-center">
+      <div class="border-t border-neutral-200 dark:border-neutral-400 w-24 mx-auto mb-6"></div>
+      <p class="text-xs uppercase tracking-widest font-medium">
+        &copy; <span id="current-year"></span> 
+        Radek Hajný 
+        <a href="mailto:hajnydev@gmail.com">hajnydev@gmail.com</a>
+        <a href="https://radekhajny.cz">radekhajny.cz</a>
+      </p>
+    </footer>
+  </div>
 
-        setInterval(updateClock, 1000);
-        updateClock();
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+      const days = ['NEDĚLE', 'PONDĚLÍ', 'ÚTERÝ', 'STŘEDA', 'ČTVRTEK', 'PÁTEK', 'SOBOTA'];
+      const months = ['LEDNA', 'ÚNORA', 'BŘEZNA', 'DUBNA', 'KVĚTNA', 'ČERVNA', 'ČERVENCE', 'SRPNA', 'ZÁŘÍ', 'ŘÍJNA', 'LISTOPADU', 'PROSINCE'];
+      document.getElementById('date').textContent = `${days[now.getDay()]}, ${now.getDate()}. ${months[now.getMonth()]}`;
+    }
+
+    function toggleDarkMode() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.theme = 'light';
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.theme = 'dark';
+      }
+    }
+
+    setInterval(updateClock, 15000);
+    updateClock();
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
